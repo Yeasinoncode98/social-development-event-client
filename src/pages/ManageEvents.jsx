@@ -89,7 +89,7 @@ const ManageEvents = () => {
   };
 
   const handleDelete = async (eventId) => {
-    // ✅ Use toast.promise to ask for confirmation
+    //  Use toast.promise to ask for confirmation
     const confirmDelete = await new Promise((resolve) => {
       toast(
         (t) => (
@@ -118,7 +118,7 @@ const ManageEvents = () => {
           </div>
         ),
         {
-          duration: Infinity, // keep it open until user clicks
+          duration: Infinity, 
           position: "top-center",
           style: { marginTop: "30px" },
         }

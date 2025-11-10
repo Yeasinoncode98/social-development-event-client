@@ -94,4 +94,4 @@ const JoinedEvents = () => {
   );
 };
 
-export default JoinedEvents; // ✅ Default export
+export default JoinedEvents; 
