@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { FaBars, FaTimes, FaUser } from "react-icons/fa";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
+import WebsiteLogo from "../assets/logo/WebsiteLogo.png";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -96,8 +97,8 @@ const Navbar = () => {
           {/* Left section: logo/name */}
           <div className="flex items-center space-x-3">
             <Link to="/" className="flex items-center">
-              <img src="/logo.png" alt="Logo" className="h-8 w-8" />
-              <span className="ml-2 text-xl font-bold text-white">
+              <img src={WebsiteLogo} alt="Logo" className="h-9 w-9" />
+              <span className="ml-2 text-2xl font-bold text-white">
                 Event_<span className="text-primary">Sphere</span>
               </span>
             </Link>
