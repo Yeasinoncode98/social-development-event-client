@@ -221,7 +221,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="bg-gray-900 shadow sticky top-0 z-50">
+    <nav className="bg-gray-900 shadow sticky top-0 z-50 mt-5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Left section: logo/name */}
@@ -229,7 +229,7 @@ const Navbar = () => {
             <Link to="/" className="flex items-center">
               <img src="/logo.png" alt="Logo" className="h-8 w-8" />
               <span className="ml-2 text-xl font-bold text-white">
-                Social Events
+                Event_Sphere
               </span>
             </Link>
           </div>

@@ -18,8 +18,8 @@ const Footer = () => {
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Brand Section */}
         <div>
-          <Link to="/" className="text-2xl font-bold text-primary">
-            EventSphere
+          <Link to="/" className="text-2xl font-bold ">
+            Event_<span className="text-primary">Sphere</span>
           </Link>
           <p className="mt-3 text-sm">
             Discover and manage amazing events effortlessly. Create, join, and

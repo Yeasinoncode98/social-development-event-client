@@ -1,8 +1,28 @@
+// Swiper jss
 import React from "react";
-import bannerImg from "../assets/images/banner1.jpg"; // example
+// Swiper Imports
+import { Swiper, SwiperSlide } from "swiper/react";
+// Corrected Swiper Import
+import { Autoplay, Navigation, Pagination } from "swiper";
+
+// Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+// Image Imports
+import banner1 from "../assets/images/banner1.jpg";
+import banner2 from "../assets/images/banner2.jpg";
+import banner3 from "../assets/images/banner3.jpg";
+
 import gallery1 from "../assets/images/banner1.jpg";
-import gallery2 from "../assets/images/banner1.jpg";
-import gallery3 from "../assets/images/banner1.jpg";
+import gallery2 from "../assets/images/pexels-cottonbro-6157554.jpg";
+import gallery3 from "../assets/images/pexels-levsi-31858860.jpg";
+import gallery4 from "../assets/images/FoodtoPoors.jpg";
+import gallery5 from "../assets/images/RoadWorker.jpg";
+import gallery6 from "../assets/images/Firefighter.jpg";
+
+const bannerImages = [banner1, banner2, banner3];
 
 const features = [
   {
@@ -19,22 +39,53 @@ const features = [
   },
 ];
 
+const galleryImages = [
+  gallery1,
+  gallery2,
+  gallery3,
+  gallery4,
+  gallery5,
+  gallery6,
+];
+
 const Home = () => {
   return (
-    <div className="space-y-16">
+    <div className="space-y-18">
       {/* Banner Section */}
-      <section className="relative h-[500px] flex items-center justify-center bg-gray-200 dark:bg-gray-800">
-        <img
-          src={bannerImg}
-          alt="Banner"
-          className="absolute inset-0 w-full h-full object-cover opacity-70"
-        />
-        <div className="relative text-center px-4">
+      {/* We keep the height and relative positioning on the parent section */}
+      <section className="mt-10 relative h-[500px] flex items-center justify-center bg-gray-200 dark:bg-gray-800">
+        {/* Swiper Container for Banner (Background) */}
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={0}
+          slidesPerView={1}
+          loop={true}
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+          }}
+          className="absolute inset-0 w-full h-full"
+        >
+          {bannerImages.map((img, idx) => (
+            <SwiperSlide key={idx} className="relative">
+              <img
+                src={img}
+                alt={`Banner ${idx + 1}`}
+                className="w-full h-full object-cover opacity-70"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        {/* Text Overlay (ABSOLUTE CENTERING METHOD APPLIED) */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center px-4 z-10">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
             Social Development Events
           </h1>
-          <p className="text-lg md:text-2xl text-white">
-            Join or create events to make a difference in your community
+          <p className="text-lg md:text-2xl text-white/80">
+            Join hands in creating positive change! Social Development Events
+            connects communities, volunteers, and organizations through
+            meaningful events that inspire growth, learning, and social impact.
           </p>
         </div>
       </section>
@@ -66,16 +117,42 @@ const Home = () => {
         <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-8 text-center">
           Event Gallery
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[gallery1, gallery2, gallery3].map((img, idx) => (
-            <div key={idx} className="overflow-hidden rounded-lg shadow-md">
-              <img
-                src={img}
-                alt={`Gallery ${idx + 1}`}
-                className="w-full h-64 object-cover transform hover:scale-105 transition"
-              />
-            </div>
-          ))}
+
+        <div className="relative">
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            spaceBetween={20}
+            slidesPerView={1}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+            }}
+            navigation={true}
+            pagination={{ clickable: true }}
+            autoplay={{
+              delay: 3500,
+              disableOnInteraction: false,
+            }}
+            className="mySwiper"
+          >
+            {galleryImages.map((img, idx) => (
+              <SwiperSlide key={idx}>
+                <div className="overflow-hidden rounded-lg shadow-xl">
+                  <img
+                    src={img}
+                    alt={`Gallery ${idx + 1}`}
+                    className="w-full h-80 object-cover"
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </section>
 
