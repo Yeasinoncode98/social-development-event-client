@@ -1,21 +1,3 @@
-// import { initializeApp } from "firebase/app";
-// import { getAuth } from "firebase/auth";
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDHXMmen9m8BHXfvnSns0Qtve_8hk9_Gbw",
-//   authDomain: "social-development-8f676.firebaseapp.com",
-//   projectId: "social-development-8f676",
-//   storageBucket: "social-development-8f676.appspot.com",
-//   messagingSenderId: "448443558217",
-//   appId: "1:448443558217:web:8c096af8809cde8bead298",
-// };
-
-// const firebaseApp = initializeApp(firebaseConfig);
-// export const auth = getAuth(firebaseApp);
-// export default firebaseApp;
-
-// New on with safegaurd
-
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
