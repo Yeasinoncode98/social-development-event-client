@@ -1,4 +1,600 @@
-// Delete confirmation
+// // ................load state isue 2 ......gemini
+// // Delete confirmation
+// import React, { useEffect, useState } from "react";
+// import { useAuth } from "../context/AuthContext";
+// import {
+//   getUserEvents,
+//   updateEvent,
+//   deleteEvent,
+// } from "../services/eventService";
+// import { toast, Toaster } from "react-hot-toast"; // Ensure Toaster is imported
+// import Spinner from "../components/Spinner";
+
+// const ManageEvents = () => {
+//   const { user } = useAuth();
+//   const [events, setEvents] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [editingEvent, setEditingEvent] = useState(null);
+//   const [formData, setFormData] = useState({
+//     title: "",
+//     type: "",
+//     location: "",
+//     date: "",
+//     thumbnail: "",
+//   });
+
+//   // Fetch user events
+//   useEffect(() => {
+//     if (!user) return;
+
+//     const fetchEvents = async () => {
+//       try {
+//         setLoading(true);
+//         const data = await getUserEvents(user.email);
+//         setEvents(data);
+//       } catch (error) {
+//         toast.error("Failed to fetch your events.", {
+//           position: "top-center",
+//         });
+//         console.error(error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchEvents();
+//   }, [user]);
+
+//   const startEditing = (event) => {
+//     setEditingEvent(event._id);
+//     setFormData({
+//       title: event.title || "",
+//       type: event.type || "",
+//       location: event.location || "",
+//       // Correctly format date for input type="datetime-local"
+//       date: event.date ? new Date(event.date).toISOString().slice(0, 16) : "",
+//       thumbnail: event.thumbnail || "",
+//     });
+//   };
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     if (!editingEvent) return;
+
+//     try {
+//       await updateEvent(editingEvent, formData);
+
+//       setEvents((prev) =>
+//         prev.map((ev) =>
+//           ev._id === editingEvent ? { ...ev, ...formData } : ev
+//         )
+//       );
+
+//       toast.success("Event updated successfully!", {
+//         position: "top-center",
+//       });
+//       setEditingEvent(null);
+//     } catch (error) {
+//       toast.error("Failed to update event.", {
+//         position: "top-center",
+//       });
+//       console.error(error);
+//     }
+//   };
+
+//   const handleDelete = async (eventId) => {
+//     // 🛑 FIX: Using standard window.confirm to prevent react-hot-toast freezing bug
+//     const confirmDelete = window.confirm(
+//       "Are you sure you want to permanently delete this event?"
+//     );
+
+//     if (!confirmDelete) return;
+
+//     try {
+//       await deleteEvent(eventId);
+
+//       // ✅ FIX FOR INSTANT REFRESH: Filter the local state array
+//       setEvents((prev) => prev.filter((ev) => ev._id !== eventId));
+
+//       toast.success("Event deleted successfully!", {
+//         position: "top-center",
+//       });
+//     } catch (error) {
+//       toast.error("Failed to delete event.", {
+//         position: "top-center",
+//       });
+//       console.error(error);
+//     }
+//   };
+
+//   if (loading) return <Spinner />;
+
+//   if (!user) {
+//     return (
+//       <div className="text-center mt-20">
+//         <h2 className="text-xl font-semibold">
+//           Please log in to manage your events.
+//         </h2>
+//       </div>
+//     );
+//   }
+
+//   if (!events.length) {
+//     return (
+//       <div className="text-center mt-20 bg-white dark:bg-gray-800 rounded-lg shadow-md p-12 max-w-2xl mx-auto">
+//         <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
+//           No Events Created
+//         </h2>
+//         <p className="text-gray-500 dark:text-gray-300 mb-6">
+//           You haven't created any events yet. Start by creating your first
+//           event!
+//         </p>
+//         <a
+//           href="/create-event"
+//           className="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
+//         >
+//           Create Event
+//         </a>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="container mx-auto px-4 py-8">
+//       {/* Ensure Toaster is present to display toast messages */}
+//       <Toaster
+//         position="top-center"
+//         toastOptions={{ style: { marginTop: "30px" } }}
+//       />
+//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+//         {events.map((event) => (
+//           <div
+//             key={event._id}
+//             className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden flex flex-col"
+//           >
+//             <img
+//               src={event.thumbnail || "/default-event.jpg"}
+//               alt={event.title}
+//               className="w-full h-48 object-cover"
+//             />
+//             <div className="p-4 flex-grow">
+//               {editingEvent === event._id ? (
+//                 <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+//                   <input
+//                     type="text"
+//                     name="title"
+//                     value={formData.title}
+//                     onChange={handleChange}
+//                     placeholder="Title"
+//                     className="border p-2 rounded"
+//                     required
+//                   />
+//                   <input
+//                     type="text"
+//                     name="type"
+//                     value={formData.type}
+//                     onChange={handleChange}
+//                     placeholder="Type"
+//                     className="border p-2 rounded"
+//                   />
+//                   <input
+//                     type="text"
+//                     name="location"
+//                     value={formData.location}
+//                     onChange={handleChange}
+//                     placeholder="Location"
+//                     className="border p-2 rounded"
+//                   />
+//                   <input
+//                     type="datetime-local"
+//                     name="date"
+//                     value={formData.date}
+//                     onChange={handleChange}
+//                     className="border p-2 rounded"
+//                   />
+//                   <input
+//                     type="text"
+//                     name="thumbnail"
+//                     value={formData.thumbnail}
+//                     onChange={handleChange}
+//                     placeholder="Thumbnail URL"
+//                     className="border p-2 rounded"
+//                   />
+//                   <div className="flex gap-2 mt-2">
+//                     <button
+//                       type="submit"
+//                       className="flex-1 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+//                     >
+//                       Save
+//                     </button>
+//                     <button
+//                       type="button"
+//                       onClick={() => setEditingEvent(null)}
+//                       className="flex-1 bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition"
+//                     >
+//                       Cancel
+//                     </button>
+//                   </div>
+//                 </form>
+//               ) : (
+//                 <>
+//                   <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-100">
+//                     {event.title}
+//                   </h3>
+//                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+//                     <span className="font-medium">Type:</span>{" "}
+//                     {event.type || "N/A"}
+//                   </p>
+//                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+//                     <span className="font-medium">Location:</span>{" "}
+//                     {event.location || "N/A"}
+//                   </p>
+//                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+//                     <span className="font-medium">Date:</span>{" "}
+//                     {event.date ? new Date(event.date).toLocaleString() : "N/A"}
+//                   </p>
+//                   <p className="text-sm text-gray-600 dark:text-gray-300">
+//                     <span className="font-medium">Participants:</span>{" "}
+//                     {event.joinedUsers?.length || 0}
+//                   </p>
+//                 </>
+//               )}
+//             </div>
+//             <div className="flex gap-2 p-4 border-t dark:border-gray-700">
+//               {editingEvent !== event._id && (
+//                 <>
+//                   <button
+//                     onClick={() => startEditing(event)}
+//                     className="flex-1 bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition"
+//                   >
+//                     Update
+//                   </button>
+//                   <button
+//                     onClick={() => handleDelete(event._id)}
+//                     className="flex-1 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition"
+//                   >
+//                     Delete
+//                   </button>
+//                 </>
+//               )}
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ManageEvents;
+
+// ..............Toast isse fix
+
+// import React, { useEffect, useState } from "react";
+// import { useAuth } from "../context/AuthContext";
+// import {
+//   getUserEvents,
+//   updateEvent,
+//   deleteEvent,
+// } from "../services/eventService";
+// import { toast, Toaster } from "react-hot-toast";
+// import Spinner from "../components/Spinner";
+
+// const ManageEvents = () => {
+//   const { user } = useAuth();
+//   const [events, setEvents] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [editingEvent, setEditingEvent] = useState(null);
+//   const [formData, setFormData] = useState({
+//     title: "",
+//     type: "",
+//     location: "",
+//     date: "",
+//     thumbnail: "",
+//   });
+
+//   // Fetch user events
+//   useEffect(() => {
+//     if (!user) return;
+
+//     const fetchEvents = async () => {
+//       try {
+//         setLoading(true);
+//         const data = await getUserEvents(user.email);
+//         setEvents(data);
+//       } catch (error) {
+//         toast.error("Failed to fetch your events.", {
+//           position: "top-center",
+//         });
+//         console.error(error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchEvents();
+//   }, [user]);
+
+//   const startEditing = (event) => {
+//     setEditingEvent(event._id);
+//     setFormData({
+//       title: event.title || "",
+//       type: event.type || "",
+//       location: event.location || "",
+//       // Correctly format date for input type="datetime-local"
+//       date: event.date ? new Date(event.date).toISOString().slice(0, 16) : "",
+//       thumbnail: event.thumbnail || "",
+//     });
+//   };
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     if (!editingEvent) return;
+
+//     try {
+//       await updateEvent(editingEvent, formData);
+
+//       // Instant refresh on Update
+//       setEvents((prev) =>
+//         prev.map((ev) =>
+//           ev._id === editingEvent ? { ...ev, ...formData } : ev
+//         )
+//       );
+
+//       toast.success("Event updated successfully!", {
+//         position: "top-center",
+//       });
+//       setEditingEvent(null);
+//     } catch (error) {
+//       toast.error("Failed to update event.", {
+//         position: "top-center",
+//       });
+//       console.error(error);
+//     }
+//   };
+
+//   // Separate function to handle the actual API call and state update
+//   const executeDelete = async (eventId) => {
+//     const deletionPromise = deleteEvent(eventId);
+
+//     toast
+//       .promise(
+//         deletionPromise,
+//         {
+//           loading: "Deleting event...",
+//           success: "Event deleted successfully!",
+//           error: "Failed to delete event.",
+//         },
+//         { position: "top-center" }
+//       )
+//       .then(() => {
+//         // ✅ FIX: Instant refresh on Delete: Filter the local state array upon successful API call
+//         setEvents((prev) => prev.filter((ev) => ev._id !== eventId));
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//       });
+//   };
+
+//   const handleDelete = (eventId) => {
+//     // 🚀 FIX: Custom toast confirmation replaces window.confirm
+//     toast.custom(
+//       (t) => (
+//         <div
+//           className={`${
+//             t.visible ? "animate-enter" : "animate-leave"
+//           } max-w-md w-full bg-white dark:bg-gray-700 shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+//         >
+//           <div className="flex-1 w-0 p-4">
+//             <div className="flex items-start">
+//               <div className="flex-shrink-0 pt-0.5">
+//                 <span role="img" aria-label="alert" className="text-xl">
+//                   ⚠️
+//                 </span>
+//               </div>
+//               <div className="ml-3 flex-1">
+//                 <p className="text-sm font-medium text-gray-900 dark:text-white">
+//                   Confirm Deletion
+//                 </p>
+//                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
+//                   Are you sure you want to permanently delete this event?
+//                 </p>
+//               </div>
+//             </div>
+//           </div>
+//           <div className="flex border-l border-gray-200 dark:border-gray-600">
+//             <button
+//               onClick={() => {
+//                 toast.dismiss(t.id);
+//                 executeDelete(eventId);
+//               }}
+//               className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+//             >
+//               Yes, Delete
+//             </button>
+//             <button
+//               onClick={() => toast.dismiss(t.id)}
+//               className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500"
+//             >
+//               Cancel
+//             </button>
+//           </div>
+//         </div>
+//       ),
+//       { duration: Infinity, position: "top-center" }
+//     ); // Keep open until action taken
+//   };
+
+//   if (loading) return <Spinner />;
+
+//   if (!user) {
+//     return (
+//       <div className="text-center mt-20">
+//         <h2 className="text-xl font-semibold">
+//           Please log in to manage your events.
+//         </h2>
+//       </div>
+//     );
+//   }
+
+//   if (!events.length) {
+//     return (
+//       <div className="text-center mt-20 bg-white dark:bg-gray-800 rounded-lg shadow-md p-12 max-w-2xl mx-auto">
+//         <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
+//           No Events Created
+//         </h2>
+//         <p className="text-gray-500 dark:text-gray-300 mb-6">
+//           You haven't created any events yet. Start by creating your first
+//           event!
+//         </p>
+//         <a
+//           href="/create-event"
+//           className="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
+//         >
+//           Create Event
+//         </a>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="container mx-auto px-4 py-8">
+//       {/* Ensure Toaster is present to display toast messages */}
+//       <Toaster
+//         position="top-center"
+//         toastOptions={{ style: { marginTop: "30px" } }}
+//       />
+//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+//         {events.map((event) => (
+//           <div
+//             key={event._id}
+//             className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden flex flex-col"
+//           >
+//             <img
+//               src={event.thumbnail || "/default-event.jpg"}
+//               alt={event.title}
+//               className="w-full h-48 object-cover"
+//             />
+//             <div className="p-4 flex-grow">
+//               {editingEvent === event._id ? (
+//                 <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+//                   <input
+//                     type="text"
+//                     name="title"
+//                     value={formData.title}
+//                     onChange={handleChange}
+//                     placeholder="Title"
+//                     className="border p-2 rounded"
+//                     required
+//                   />
+//                   <input
+//                     type="text"
+//                     name="type"
+//                     value={formData.type}
+//                     onChange={handleChange}
+//                     placeholder="Type"
+//                     className="border p-2 rounded"
+//                   />
+//                   <input
+//                     type="text"
+//                     name="location"
+//                     value={formData.location}
+//                     onChange={handleChange}
+//                     placeholder="Location"
+//                     className="border p-2 rounded"
+//                   />
+//                   <input
+//                     type="datetime-local"
+//                     name="date"
+//                     value={formData.date}
+//                     onChange={handleChange}
+//                     className="border p-2 rounded"
+//                   />
+//                   <input
+//                     type="text"
+//                     name="thumbnail"
+//                     value={formData.thumbnail}
+//                     onChange={handleChange}
+//                     placeholder="Thumbnail URL"
+//                     className="border p-2 rounded"
+//                   />
+//                   <div className="flex gap-2 mt-2">
+//                     <button
+//                       type="submit"
+//                       className="flex-1 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+//                     >
+//                       Save
+//                     </button>
+//                     <button
+//                       type="button"
+//                       onClick={() => setEditingEvent(null)}
+//                       className="flex-1 bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition"
+//                     >
+//                       Cancel
+//                     </button>
+//                   </div>
+//                 </form>
+//               ) : (
+//                 <>
+//                   <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-100">
+//                     {event.title}
+//                   </h3>
+//                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+//                     <span className="font-medium">Type:</span>{" "}
+//                     {event.type || "N/A"}
+//                   </p>
+//                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+//                     <span className="font-medium">Location:</span>{" "}
+//                     {event.location || "N/A"}
+//                   </p>
+//                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+//                     <span className="font-medium">Date:</span>{" "}
+//                     {event.date ? new Date(event.date).toLocaleString() : "N/A"}
+//                   </p>
+//                   <p className="text-sm text-gray-600 dark:text-gray-300">
+//                     <span className="font-medium">Participants:</span>{" "}
+//                     {event.joinedUsers?.length || 0}
+//                   </p>
+//                 </>
+//               )}
+//             </div>
+//             <div className="flex gap-2 p-4 border-t dark:border-gray-700">
+//               {editingEvent !== event._id && (
+//                 <>
+//                   <button
+//                     onClick={() => startEditing(event)}
+//                     className="flex-1 bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition"
+//                   >
+//                     Update
+//                   </button>
+//                   <button
+//                     onClick={() => handleDelete(event._id)}
+//                     className="flex-1 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition"
+//                   >
+//                     Delete
+//                   </button>
+//                 </>
+//               )}
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ManageEvents;
+
+// ....................claude
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import {
@@ -8,6 +604,7 @@ import {
 } from "../services/eventService";
 import { toast } from "react-hot-toast";
 import Spinner from "../components/Spinner";
+import { Link } from "react-router-dom"; // ✅ Use Link instead of <a>
 
 const ManageEvents = () => {
   const { user } = useAuth();
@@ -22,7 +619,6 @@ const ManageEvents = () => {
     thumbnail: "",
   });
 
-  // Fetch user events
   useEffect(() => {
     if (!user) return;
 
@@ -32,10 +628,7 @@ const ManageEvents = () => {
         const data = await getUserEvents(user.email);
         setEvents(data);
       } catch (error) {
-        toast.error("Failed to fetch your events.", {
-          position: "top-center",
-          style: { marginTop: "30px" },
-        });
+        toast.error("Failed to fetch your events.");
         console.error(error);
       } finally {
         setLoading(false);
@@ -74,73 +667,77 @@ const ManageEvents = () => {
         )
       );
 
-      toast.success("Event updated successfully!", {
-        position: "top-center",
-        style: { marginTop: "30px" },
-      });
+      toast.success("Event updated successfully!");
       setEditingEvent(null);
     } catch (error) {
-      toast.error("Failed to update event.", {
-        position: "top-center",
-        style: { marginTop: "30px" },
-      });
+      toast.error("Failed to update event.");
       console.error(error);
     }
   };
 
-  const handleDelete = async (eventId) => {
-    //  Use toast.promise to ask for confirmation
-    const confirmDelete = await new Promise((resolve) => {
-      toast(
-        (t) => (
-          <div className="flex flex-col gap-2">
-            <p>Are you sure you want to delete this event?</p>
-            <div className="flex gap-2 mt-2">
-              <button
-                className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
-                onClick={() => {
-                  resolve(true);
-                  toast.dismiss(t.id);
-                }}
-              >
-                Yes
-              </button>
-              <button
-                className="bg-gray-400 text-white px-3 py-1 rounded hover:bg-gray-500"
-                onClick={() => {
-                  resolve(false);
-                  toast.dismiss(t.id);
-                }}
-              >
-                No
-              </button>
+  const executeDelete = async (eventId) => {
+    const deletionPromise = deleteEvent(eventId);
+
+    toast
+      .promise(deletionPromise, {
+        loading: "Deleting event...",
+        success: "Event deleted successfully!",
+        error: "Failed to delete event.",
+      })
+      .then(() => {
+        setEvents((prev) => prev.filter((ev) => ev._id !== eventId));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleDelete = (eventId) => {
+    toast.custom(
+      (t) => (
+        <div
+          className={`${
+            t.visible ? "animate-enter" : "animate-leave"
+          } max-w-md w-full bg-white dark:bg-gray-700 shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+        >
+          <div className="flex-1 w-0 p-4">
+            <div className="flex items-start">
+              <div className="flex-shrink-0 pt-0.5">
+                <span role="img" aria-label="alert" className="text-xl">
+                  ⚠️
+                </span>
+              </div>
+              <div className="ml-3 flex-1">
+                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  Confirm Deletion
+                </p>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
+                  Are you sure you want to permanently delete this event?
+                </p>
+              </div>
             </div>
           </div>
-        ),
-        {
-          duration: Infinity, 
-          position: "top-center",
-          style: { marginTop: "30px" },
-        }
-      );
-    });
-
-    if (!confirmDelete) return;
-
-    try {
-      await deleteEvent(eventId);
-      setEvents((prev) => prev.filter((ev) => ev._id !== eventId));
-      toast.success("Event deleted successfully!", {
-        position: "top-center",
-        style: { marginTop: "30px" },
-      });
-    } catch (error) {
-      toast.error("Failed to delete event.", {
-        position: "top-center",
-        style: { marginTop: "30px" },
-      });
-      console.error(error);
-    }
+          <div className="flex border-l border-gray-200 dark:border-gray-600">
+            <button
+              onClick={() => {
+                toast.dismiss(t.id);
+                executeDelete(eventId);
+              }}
+              className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-500"
+            >
+              Yes, Delete
+            </button>
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      ),
+      { duration: Infinity }
+    );
   };
 
   if (loading) return <Spinner />;
@@ -148,7 +745,7 @@ const ManageEvents = () => {
   if (!user) {
     return (
       <div className="text-center mt-20">
-        <h2 className="text-xl font-semibold">
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">
           Please log in to manage your events.
         </h2>
       </div>
@@ -165,12 +762,13 @@ const ManageEvents = () => {
           You haven't created any events yet. Start by creating your first
           event!
         </p>
-        <a
-          href="/create-event"
+        {/* ✅ Fixed broken <a> by using react-router-dom Link */}
+        <Link
+          to="/create-event"
           className="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
         >
           Create Event
-        </a>
+        </Link>
       </div>
     );
   }
@@ -197,7 +795,7 @@ const ManageEvents = () => {
                     value={formData.title}
                     onChange={handleChange}
                     placeholder="Title"
-                    className="border p-2 rounded"
+                    className="border p-2 rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
                     required
                   />
                   <input
@@ -206,7 +804,7 @@ const ManageEvents = () => {
                     value={formData.type}
                     onChange={handleChange}
                     placeholder="Type"
-                    className="border p-2 rounded"
+                    className="border p-2 rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
                   />
                   <input
                     type="text"
@@ -214,14 +812,14 @@ const ManageEvents = () => {
                     value={formData.location}
                     onChange={handleChange}
                     placeholder="Location"
-                    className="border p-2 rounded"
+                    className="border p-2 rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
                   />
                   <input
                     type="datetime-local"
                     name="date"
                     value={formData.date}
                     onChange={handleChange}
-                    className="border p-2 rounded"
+                    className="border p-2 rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
                   />
                   <input
                     type="text"
@@ -229,7 +827,7 @@ const ManageEvents = () => {
                     value={formData.thumbnail}
                     onChange={handleChange}
                     placeholder="Thumbnail URL"
-                    className="border p-2 rounded"
+                    className="border p-2 rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
                   />
                   <div className="flex gap-2 mt-2">
                     <button
