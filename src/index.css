@@ -1,0 +1,17 @@
+/* Tailwind CSs */
+@import "tailwindcss";
+
+/* Daisy UI */
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+/* For modern browsers like Chrome, Firefox, Edge, etc. */
+html {
+  overflow-y: scroll;
+}
+
+/* Optional: For Internet Explorer/Edge compatibility */
+body {
+  -ms-overflow-style: scrollbar;
+}
