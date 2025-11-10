@@ -17,6 +17,7 @@ import CreateEvent from "../pages/CreateEvent";
 import ManageEvents from "../pages/ManageEvents";
 import JoinedEvents from "../pages/JoinedEvents";
 import ErrorPage from "../pages/ErrorPage";
+import VisitUs from "../pages/VisitUs";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,9 @@ const router = createBrowserRouter([
       // Upcoming Events
       { path: "upcoming-events", element: <UpcomingEvents /> },
       { path: "events", element: <Navigate to="/upcoming-events" replace /> }, // redirect /events -> /upcoming-events
+
+      // Visit Us (Normal Route)
+      { path: "visit_us", element: <VisitUs /> },
 
       // Event Details
       { path: "event/:id", element: <EventDetails /> },

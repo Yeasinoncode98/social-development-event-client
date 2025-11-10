@@ -62,6 +62,7 @@ const Navbar = () => {
       >
         Home
       </NavLink>
+      {/* Upcoming Events */}
       <NavLink
         to="/upcoming-events"
         className={({ isActive }) =>
@@ -71,6 +72,19 @@ const Navbar = () => {
         }
       >
         Upcoming Events
+      </NavLink>
+
+      {/* Visit us  */}
+      {/* NEW: All Events link beside Upcoming Events */}
+      <NavLink
+        to="visit_us"
+        className={({ isActive }) =>
+          `px-3 py-2 rounded-md text-sm font-medium text-white ${
+            isActive ? "underline underline-offset-4" : "hover:text-blue-300"
+          }`
+        }
+      >
+        Visit Us
       </NavLink>
     </>
   );
