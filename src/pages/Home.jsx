@@ -115,7 +115,7 @@ const Home = () => {
       {/* Gallery Section */}
       <section className="max-w-6xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-8 text-center">
-          Event Gallery
+          Social Events
         </h2>
 
         <div className="relative">
