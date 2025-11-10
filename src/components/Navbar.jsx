@@ -84,7 +84,7 @@ const Navbar = () => {
           }`
         }
       >
-        Visit Us
+        Visit Our Gallery
       </NavLink>
     </>
   );
