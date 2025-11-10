@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
+// import EventSpehereLogo from "../assets/logo/WebsiteLogo.png";
 
 const Footer = () => {
   const { theme } = useContext(ThemeContext);
@@ -92,11 +93,11 @@ const Footer = () => {
 
       {/* Bottom Footer */}
       <div
-        className={`text-center mt-8 text-sm ${
+        className={`text-center mt-8 text-sm  ${
           theme === "dark" ? "border-gray-800" : "border-gray-200"
         }`}
       >
-        <p>© {new Date().getFullYear()} EventSphere. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} EventSphere.All rights reserved.</p>
       </div>
     </footer>
   );
