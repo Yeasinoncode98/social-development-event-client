@@ -1,6 +1,12 @@
 /* Tailwind CSs */
 @import "tailwindcss";
 
+
+/* CRITICAL: Enable dark mode for Tailwind v4
+@theme {
+  --color-scheme: light dark;
+} */
+
 /* Daisy UI */
 @plugin "daisyui" {
   themes: light --default;
@@ -119,4 +125,3 @@ body {
 .animation-delay-150 {
   animation-delay: 150ms;
 }
-

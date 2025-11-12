@@ -45,7 +45,7 @@ const UpcomingEvents = () => {
   const handleJoinSuccess = () => console.log("Joined event!");
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 min-h-screen bg-white dark:bg-gray-900">
       <h1 className=" text-3xl font-bold mb-10 text-gray-800 dark:text-gray-100 text-center">
         Upcoming Events ({events.length})
       </h1>
@@ -58,7 +58,7 @@ const UpcomingEvents = () => {
           placeholder="Search events..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border border-red-500 dark:border-red-400 p-2 rounded w-full md:w-auto md:max-w-xs text-gray-900 dark:text-gray-100 dark:bg-gray-700 
+          className="border border-red-500 dark:border-red-400 p-2 rounded w-full md:w-auto md:max-w-xs text-gray-900 dark:text-gray-100 dark:bg-gray-700
                      focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500
                      dark:focus:ring-red-400 dark:focus:border-red-400 dark:focus:bg-gray-700"
         />
@@ -128,3 +128,5 @@ const UpcomingEvents = () => {
 };
 
 export default UpcomingEvents;
+
+// .......................................
