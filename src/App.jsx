@@ -5,4 +5,4 @@ const App = () => {
   return <AppRouter />;
 };
 
-export default App; // ✅ must be default export
+export default App; //
