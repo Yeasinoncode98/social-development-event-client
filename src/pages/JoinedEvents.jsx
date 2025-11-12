@@ -10,6 +10,8 @@ const JoinedEvents = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // used useeffect here
+
   useEffect(() => {
     const fetchJoinedEvents = async () => {
       if (!user?.email) {
@@ -94,4 +96,4 @@ const JoinedEvents = () => {
   );
 };
 
-export default JoinedEvents; 
+export default JoinedEvents;
