@@ -1,4 +1,3 @@
-// claude our impact in section
 import React, { useEffect } from "react";
 // Swiper Imports
 import { Swiper, SwiperSlide } from "swiper/react";

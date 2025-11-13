@@ -2,10 +2,7 @@
 @import "tailwindcss";
 
 
-/* CRITICAL: Enable dark mode for Tailwind v4
-@theme {
-  --color-scheme: light dark;
-} */
+
 
 /* Daisy UI */
 @plugin "daisyui" {
