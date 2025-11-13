@@ -292,7 +292,7 @@ const EventDetails = () => {
                     className="flex-1 flex items-center justify-center gap-3 px-8 py-4 rounded-2xl backdrop-blur-2xl bg-gradient-to-r from-blue-500/70 to-indigo-500/70 hover:from-blue-600/80 hover:to-indigo-600/80 text-white font-bold shadow-xl shadow-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/40 transition-all hover:scale-105 border-2 border-white/30"
                   >
                     <Users className="w-5 h-5" />
-                    View My Events
+                    View My Joined Events
                   </button>
                 )}
               </div>
