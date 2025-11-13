@@ -77,24 +77,66 @@ A modern full-stack **Social Development Platform** built using **React**, **Nod
 ---
 
 ## Project Structure
-social-development-website/
+completed accorcing to folder structure client/
 │
-├── client/ # React frontend
-│ ├── src/
-│ │ ├── components/ # Reusable React components
-│ │ ├── pages/ # Page components (Home, JoinedEvents, etc.)
-│ │ ├── services/ # API service functions
-│ │ └── App.js
-│ └── package.json
+├── public/
+│   ├── favicon.ico
+│   └── logo.png
 │
-├── server/ # Express backend
-│ ├── routes/ # API routes
-│ ├── controllers/ # Route controllers / business logic
-│ ├── models/ # MongoDB schemas
-│ └── index.js # Entry point for server
+├── src/
+│   ├── assets/
+│   │   └── images/
+│   │       ├── banner/
+│   │       └── gallery/
+│   │
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   ├── Footer.jsx
+│   │   ├── ProtectedRoute.jsx
+│   │   ├── Spinner.jsx
+│   │   ├── ThemeToggle.jsx
+│   │   ├── EventCard.jsx
+│   │   └── ToastConfig.jsx
+│   │
+│   ├── context/
+│   │   ├── AuthContext.jsx       // Firebase Auth + user state
+│   │   └── ThemeContext.jsx      // Dark/light theme toggle
+│   │
+│   ├── firebase/
+│   │   └── firebase.config.js    // Firebase setup
+│   │
+│   ├── layouts/
+│   │   └── MainLayout.jsx        // Navbar + Outlet + Footer
+│   │
+│   ├── pages/
+│   │   ├── Home.jsx              // Banner, features, gallery, newsletter
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   ├── UpcomingEvents.jsx    // Fetch events from backend
+│   │   ├── EventDetails.jsx      // Fetch single event by ID + join API call
+│   │   ├── CreateEvent.jsx       // POST event to backend
+│   │   ├── ManageEvents.jsx      // GET/PUT/DELETE own events
+│   │   ├── JoinedEvents.jsx      // GET joined events (logged-in user)
+│   │   └── ErrorPage.jsx
+│   │
+│   ├── routes/
+│   │   └── router.jsx            // All app routes
+│   │
+│   ├── services/
+│   │   ├── api.js                // axios baseURL setup (connects backend)
+│   │   └── eventService.js       // all event-related API calls
+│   │
+│   ├── utils/
+│   │   └── validate.js           // form validations
+│   │
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css                 // Tailwind/global styles
 │
+├── .env.local                    // REACT_APP_API_URL, FIREBASE_CONFIG
 ├── .gitignore
-└── README.md
+├── vite.config.js
+└── package.json  
 
 
 
