@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
-// import EventSpehereLogo from "../assets/logo/WebsiteLogo.png";
 
 const Footer = () => {
   const { theme } = useContext(ThemeContext);

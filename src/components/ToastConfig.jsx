@@ -17,19 +17,19 @@ const ToastConfig = () => {
         },
         success: {
           style: {
-            background: "#22c55e", // Tailwind green-500
+            background: "#22c55e", 
             color: "#fff",
           },
         },
         error: {
           style: {
-            background: "#ef4444", // Tailwind red-500
+            background: "#ef4444", 
             color: "#fff",
           },
         },
         loading: {
           style: {
-            background: "#3b82f6", // Tailwind blue-500
+            background: "#3b82f6", 
             color: "#fff",
           },
         },
