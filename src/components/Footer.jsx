@@ -37,28 +37,34 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link
-                to="/upcoming-events"
+              <a
+                href="https://mohonsharif.com/yeasinarafat-portfolio"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-primary transition"
               >
-                Upcoming Events
-              </Link>
+                About Us
+              </a>
             </li>
             <li>
-              <Link
-                to="/create-event"
+              <a
+                href="https://wa.me/8801627800198"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-primary transition"
               >
-                Create Event
-              </Link>
+                Contact Us
+              </a>
             </li>
             <li>
-              <Link
-                to="/manage-events"
+              <a
+                href="https://redwine1207.my.canva.site/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-primary transition"
               >
-                Manage Events
-              </Link>
+                Website
+              </a>
             </li>
           </ul>
         </div>
@@ -92,11 +98,11 @@ const Footer = () => {
 
       {/* Bottom Footer */}
       <div
-        className={`text-center mt-8 text-sm  ${
+        className={`text-center mt-8 text-sm ${
           theme === "dark" ? "border-gray-800" : "border-gray-200"
         }`}
       >
-        <p>© {new Date().getFullYear()} EventSphere.All rights reserved.</p>
+        <p>© {new Date().getFullYear()} EventSphere. All rights reserved.</p>
       </div>
     </footer>
   );
