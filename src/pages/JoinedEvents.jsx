@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { getJoinedEvents } from "../services/eventService"; // deleteEvent removed
+import { getJoinedEvents } from "../services/eventService";
 import EventCard from "../components/EventCard";
 import Spinner from "../components/Spinner";
 import { toast } from "react-hot-toast";
@@ -10,18 +10,18 @@ const JoinedEvents = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // used useeffect here
-
   useEffect(() => {
     const fetchJoinedEvents = async () => {
       if (!user?.email) {
         setLoading(false);
         return;
       }
-
       try {
         const data = await getJoinedEvents(user.email);
-        setEvents(data);
+        const sortedEvents = data.sort((a, b) => {
+          return new Date(a.date) - new Date(b.date);
+        });
+        setEvents(sortedEvents);
       } catch (error) {
         toast.error("Failed to load joined events");
         console.error(error);
@@ -29,7 +29,6 @@ const JoinedEvents = () => {
         setLoading(false);
       }
     };
-
     fetchJoinedEvents();
   }, [user]);
 
@@ -50,7 +49,6 @@ const JoinedEvents = () => {
       <h1 className="text-center text-3xl font-bold mb-8 text-gray-800 dark:text-gray-100">
         My Joined Events ({events.length})
       </h1>
-
       {events.length === 0 ? (
         <div className="text-center mt-20 bg-white dark:bg-gray-800 rounded-lg shadow-md p-12">
           <svg
@@ -80,13 +78,11 @@ const JoinedEvents = () => {
           </a>
         </div>
       ) : (
-        <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {events.map((event) => (
-              <EventCard key={event._id} event={event} />
-            ))}
-          </div>
-        </>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {events.map((event) => (
+            <EventCard key={event._id} event={event} />
+          ))}
+        </div>
       )}
     </div>
   );

@@ -95,7 +95,7 @@ const EventCard = ({ event, showJoin = false, onJoin, currentUser }) => {
 
       {/* Main card */}
       <div
-        className="relative h-full flex flex-col rounded-3xl overflow-hidden 
+        className="relative h-full flex flex-col rounded-3xl overflow-hidden
                    backdrop-blur-xl bg-white/10 dark:bg-gray-900/10
                    border border-white/20 dark:border-gray-700/20
                    shadow-2xl shadow-purple-500/20 dark:shadow-indigo-500/30
@@ -170,9 +170,9 @@ const EventCard = ({ event, showJoin = false, onJoin, currentUser }) => {
             <Link
               to={`/event/${_id}`}
               className="group/btn flex items-center justify-center w-full px-5 py-3 rounded-xl text-sm font-bold
-                         bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 
+                         bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600
                          hover:from-purple-700 hover:via-pink-700 hover:to-purple-700
-                         text-white shadow-lg shadow-purple-500/50 
+                         text-white shadow-lg shadow-purple-500/50
                          hover:shadow-xl hover:shadow-pink-500/50
                          transform hover:-translate-y-0.5
                          transition-all duration-300 ease-out
