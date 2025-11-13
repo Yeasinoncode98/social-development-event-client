@@ -148,5 +148,3 @@ const VisitUs = () => {
 };
 
 export default VisitUs;
-
-//..............................

@@ -31,7 +31,7 @@ const router = createBrowserRouter([
 
       // Upcoming Events
       { path: "upcoming-events", element: <UpcomingEvents /> },
-      { path: "events", element: <Navigate to="/upcoming-events" replace /> }, // redirect /events -> /upcoming-events
+      { path: "events", element: <Navigate to="/upcoming-events" replace /> },
 
       // Visit Us (Normal Route)
       { path: "visit_us", element: <VisitUs /> },

@@ -3,15 +3,15 @@ import { getAuth } from "firebase/auth"; // Firebase auth
 
 const API_URL = "https://social-development-server-3.vercel.app/api/events";
 
-// ✅ Helper: Get Firebase ID token and create Authorization header
+// Get Firebase ID token and create Authorization header
 const getTokenHeader = async () => {
   try {
-    const user = getAuth().currentUser; // Current logged-in user
+    const user = getAuth().currentUser;
     if (user) {
-      const token = await user.getIdToken(); // Firebase ID token
-      return { Authorization: `Bearer ${token}` }; // Return header
+      const token = await user.getIdToken();
+      return { Authorization: `Bearer ${token}` };
     }
-    return {}; // If not logged in, return empty header
+    return {};
   } catch (error) {
     console.error("Error getting Firebase token:", error);
     return {};
