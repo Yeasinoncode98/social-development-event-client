@@ -1,83 +1,58 @@
-# Social Development Website
+# 🌟 Social Development Platform
 
-A modern full-stack **Social Development Platform** built using **React**, **Node.js**, **Express**, **MongoDB Atlas**, **Firebase**, **Tailwind CSS**, and **DaisyUI**. The platform allows users to explore, join, and manage social events seamlessly.
+A modern, full-stack **Social Development Platform** designed to connect users with social development events. This Single Page Application (SPA) is built on the MERN stack principle, augmented with Firebase for robust authentication, and styled for a clean, professional user experience.
 
----
+## 🔗 Project & Author Information
 
-## Features
-
-- **User Authentication & Authorization** using **Firebase**
-- View and join social development events
-- Manage your joined events and track registrations
-- Responsive design with **Tailwind CSS** and **DaisyUI**
-- Real-time notifications using **React Hot Toast**
-- Data storage and retrieval via **MongoDB Atlas**
-- RESTful API communication through **Express**
-- Full-stack deployment with **Vercel**
-- Sorting events by date and category
-- Error handling and loading states with **Spinner components**
+| Resource | Link |
+| :--- | :--- |
+| **Live Demo (Netlify)** | 👉 **[https://social-development-event-website.netlify.app/](https://social-development-event-website.netlify.app/)** |
+| **Frontend Repository** | 💻 **[https://github.com/Yeasinoncode98/social-development-event-client](https://github.com/Yeasinoncode98/social-development-event-client)** |
+| **Backend Repository** | 💻 **[https://github.com/Yeasinoncode98/social-development-server](https://github.com/Yeasinoncode98/social-development-server)** |
+| **Author** | Yeasinoncode98 (Yeasin Arafat) |
+| **License** | **MIT Licensed** |
 
 ---
 
-## Technologies Used
+## 💡 Key Features
 
-**Frontend:**
+The platform provides a seamless full-stack experience for managing and participating in social development events:
 
-- React
-- React Router
-- Tailwind CSS
-- DaisyUI
-- React Hot Toast
-- Firebase Authentication
-
-**Backend:**
-
-- Node.js
-- Express.js
-- MongoDB Atlas
-- CORS
-- Nodemon (for development)
-- Environment variables with `.env`
-
-**Other Libraries/Tools:**
-
-- Axios / Fetch API for server communication
-- Firebase Admin SDK
-- Various npm packages for utilities, routing, and forms
+* **Secure Authentication:** Full **Firebase Authentication** (Sign Up, Log In, Google Sign-In) for secure user sessions.
+* **Protected Routes:** Authorization ensures only logged-in users can access sensitive routes like `EventDetails` and `JoinedEvents`.
+* **Event Exploration:** Users can browse upcoming events, with options to **sort by date** and **filter by category**.
+* **Event Management:** Authenticated users can create, manage, and delete their own posted events.
+* **Registration Tracking:** Users can view and manage the list of events they have joined.
+* **Modern UI/UX:** Fully **responsive design** using **Tailwind CSS** and **DaisyUI**, featuring dark/light **theme toggling**.
+* **Real-time Feedback:** Uses **React Hot Toast** for success, error, and loading notifications.
 
 ---
 
-## Functionality Overview
+## 🛠️ Full-Stack Technologies
 
-1. **Authentication & Users:**
-   - Users can sign up or log in using Firebase Authentication.
-   - Protected routes ensure only logged-in users can join events.
+This project utilizes a powerful and versatile technology stack:
 
-2. **Events Management:**
-   - Users can browse upcoming events.
-   - Joining an event updates the MongoDB database.
-   - Backend manages registrations and linked collections.
-
-3. **UI & UX:**
-   - Responsive UI compatible with mobile and desktop.
-   - Interactive components built with Tailwind and DaisyUI.
-   - Notification system using React Hot Toast for success/error feedback.
-
-4. **Backend API:**
-   - Built with Express.js.
-   - Handles CRUD operations for events and registrations.
-   - Uses MongoDB Atlas for cloud database storage.
-   - CORS enabled for secure cross-origin requests.
-
-5. **Deployment:**
-   - Frontend and backend deployed on **Vercel**.
-   - Backend server communicates with MongoDB Atlas.
-   - Frontend consumes API endpoints to fetch or post data dynamically.
+| Category | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Frontend Core** | **React** | Building the modular user interface and SPA functionality. |
+| **Routing** | **React Router DOM** | Handling client-side navigation and protected routes. |
+| **Styling** | **Tailwind CSS & DaisyUI** | Utility-first styling and pre-built, customizable UI components. |
+| **Authentication** | **Firebase** | Providing secure, scalable user authentication and authorization. |
+| **Backend API** | **Node.js / Express.js** | Building the robust RESTful API to handle business logic. |
+| **Database** | **MongoDB Atlas** | Cloud-hosted NoSQL database for flexible data storage. |
+| **Server Communication** | **Axios / Fetch API** | Managing HTTP requests between the client and server. |
+| **Deployment** | **Vercel** | Hosting and deployment for both the frontend and backend. |
 
 ---
 
+## 📂 Project Structure
+
+The project is split into two primary repositories: the **client** (React frontend) and the **server** (Node/Express backend).
+
+### Client (React Frontend) Structure
 ## Project Structure
 completed accorcing to folder structure client/
+```
 │
 ├── public/
 │   ├── favicon.ico
@@ -138,7 +113,7 @@ completed accorcing to folder structure client/
 ├── vite.config.js
 └── package.json  
 
-
+```
 
 ---
 
@@ -155,14 +130,76 @@ completed accorcing to folder structure client/
 
 ---
 
-## For Bacekend Code Visit this repo -->
-https://github.com/Yeasinoncode98/social-development-server
 
+## ⬇️ Getting Started: Local Setup Guide
+
+You must set up both the **Backend Server** and the **Frontend Client** to run this application locally.
+
+### 1. Backend Server Setup
+
+Refer to the dedicated server repository for full instructions:
+👉 **[https://github.com/Yeasinoncode98/social-development-server](https://github.com/Yeasinoncode98/social-development-server)**
+
+**Key steps for the backend:**
+
+1.  Clone the server repo: `git clone https://github.com/Yeasinoncode98/social-development-server.git`
+2.  Install dependencies: `npm install`
+3.  Create a **`.env`** file for **MongoDB Atlas URI** and **Firebase Admin SDK** credentials.
+4.  Run the server: `npm start` (or `npm run dev` if using `nodemon`).
+
+### 2. Frontend Client Setup
+
+1.  **Clone the Client Repository**
+
+    ```bash
+    git clone [https://github.com/Yeasinoncode98/social-development-event-client.git](https://github.com/Yeasinoncode98/social-development-event-client.git)
+    cd social-development-event-client
+    ```
+
+2.  **Install Dependencies**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Configure Environment Variables**
+
+    Create a file named **`.env.local`** in the root directory (`client/`) to store your configuration details. This is crucial for connecting to Firebase and your backend server:
+
+    ```
+    # --- Backend API URL ---
+    VITE_API_URL=http://localhost:5000/api 
+    # Use the live backend URL here if the server is deployed
+
+    # --- Firebase Client Configuration (from your Firebase Project) ---
+    VITE_FIREBASE_API_KEY="YOUR_API_KEY"
+    VITE_FIREBASE_AUTH_DOMAIN="YOUR_AUTH_DOMAIN"
+    VITE_FIREBASE_PROJECT_ID="YOUR_PROJECT_ID"
+    # ... include other Firebase keys here
+    ```
+
+4.  **Run the Client**
+
+    Start the React development server:
+
+    ```bash
+    npm run dev
+    # or npm start
+    ```
+
+5.  **Access the Application**
+
+    Open your web browser and navigate to the local address provided (e.g., `http://localhost:5173/`).
+
+---
 
 ## License
 
-This project is **MIT Licensed** – free to use, modify, and distribute with proper attribution.
+This project is released under the **MIT License**.
+
 
 ---
 
 ✨ Built with ❤️ using React, Node.js, Express, MongoDB, Firebase, Tailwind CSS, and DaisyUI
+
+---
